@@ -3,7 +3,7 @@
 # I've always wanted a pair of Non-transitive Dice.
 # This version is inspired by Dr. James Grime from the University of Cambridge.
 
-#Version 1.1 : Multiple rolls with simple summary of who won.
+#Version 1.11 : Multiple rolls with simple summary of who won.
 import random
 
 def player1_die_pick(die):
@@ -26,7 +26,7 @@ def player2_die_pick(die, p1Choice):
         p2Die = raw_input("Player 2, pick your die:")
         if(p2Die in die):
             p2DieTest = die[p2Die]
-            if(p2DieTest == p1Die):
+            if(p2DieTest == p1Choice):
                 print "die already selected."
             else:
                 p2Die = p2DieTest
