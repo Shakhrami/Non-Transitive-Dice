@@ -3,7 +3,8 @@
 # I've always wanted a pair of Non-transitive Dice.
 # This version is inspired by Dr. James Grime from the University of Cambridge.
 
-#Version 1.11 : Multiple rolls with simple summary of who won.
+#Version 2.0 : Multiple die per player.
+#want to add winning guide
 import random
 
 def player1_die_pick(die):
@@ -63,32 +64,73 @@ def compair_rolls(p1, p2):
     p2Mu = p2Wins / float(len(p1))   
     if(p1Wins > p2Wins):
         print "Player one won the most rolls:", p1Mu * 100, "% victory rate."
-    else:
+    elif(p1Wins < p2Wins):
         print "Player two won the most rolls:", p2Mu * 100, "% victory rate."
+    else:
+        print "Tie game!"
+
+def two_die_rolls(die, numOfRolls):
+    rollSum = []
+    for i in range(0, numOfRolls):
+        roll1 = random.choice(die)
+        roll2 = random.choice(die)
+        rollSum.append(roll1 + roll2)
+    return rollSum
+    
+def game_start(die):
+    for dice in die:
+        print dice,":" ,die[dice]
+    print "-------------------------------------------------"
+    numOfDie =  raw_input("1 or 2 die per player?")
+    print "You just entered: ", numOfDie
+    while True:
+        if(numOfDie == "1.0" or numOfDie == "2.0" or
+           numOfDie == "1" or numOfDie == "2"):
+            print "nice"
+            numOfDie = int(numOfDie)
+            break
+        else:
+            print "Invalid number of die."
+            numOfDie =  raw_input("1 or 2 die per player?")
+    if(numOfDie == 1):
+        p1Die = player1_die_pick(die)
+        p2Die = player2_die_pick(die, p1Die)
+        numOfRolls = get_rolls()
+        p1Roll = players_rolls(p1Die, numOfRolls)
+        p2Roll = players_rolls(p2Die, numOfRolls)
+        print "P1's roll:", p1Roll
+        print "P2's roll:", p2Roll
+        compair_rolls(p1Roll, p2Roll)
+    else:
+        p1Die1 = player1_die_pick(die)
+        p2Die1 = player2_die_pick(die, p1Die1)
+        numOfRolls = get_rolls()
+        p1Rolls = two_die_rolls(p1Die1, numOfRolls)
+        p2Rolls = two_die_rolls(p2Die1, numOfRolls)
+        print "P1 roll sums:", p1Rolls
+        print "P2 roll sums:", p2Rolls
+        compair_rolls(p1Rolls, p2Rolls)
+
+def replay(die):
+    replay = raw_input("Want to play again?")
+    while True:
+        if(replay == "Y" or replay == "y" or replay == "Yes" or replay == "yes"):
+            replay = ""
+            game_start(die)
+        elif(replay == "N" or replay == "n" or replay == "No" or replay == "no"):
+            print "Thanks for playing!"
+            break
+        else:
+            replay = raw_input("Want to play again?")
     
     
+   
 die = {"Red" : [4,4,4,4,4,9],
        "Yellow" : [3,3,3,3,8,8],
        "Blue" : [2,2,2,7,7,7],
        "Magenta" : [1,1,6,6,6,6],
        "Olive" : [0,5,5,5,5,5]}
 
-for dice in die:
-    print dice,":" ,die[dice]
-print "-------------------------------------------------"       
+game_start(die)
+replay(die)
 
-p1Die = player1_die_pick(die)
-p2Die = player2_die_pick(die, p1Die)
-
-"""
-Roll multiple times.
-"""
-numOfRolls = get_rolls()
-
-p1Roll = players_rolls(p1Die, numOfRolls)
-p2Roll = players_rolls(p2Die, numOfRolls)
-
-print "P1's roll:", p1Roll
-print "P2's roll:", p2Roll
-
-compair_rolls(p1Roll, p2Roll)
