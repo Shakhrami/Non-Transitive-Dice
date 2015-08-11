@@ -3,10 +3,16 @@
 # I've always wanted a pair of Non-transitive Dice.
 # This version is inspired by Dr. James Grime from the University of Cambridge.
 
-#Version 2.0 : Multiple die per player.
-#want to add winning guide
-import random
+#Version 2.1 : Multiple die per player.
 
+#One die guide:
+#winning chain 1: Alphabetical: Blue>Magenta>Olive>Red>Yellow>Blue
+#winning chain 2: Word-length : Red>Blue>Olive>Yellow>Magenta>Red
+
+#Two die guide:
+#winning chain 1: Alphabetical R-O switch: Blue>Magenta>Red>Olive>Yellow>Blue
+#winning chain 2: Reverse word-length:     Magenta>Yellow>Olive>Blue>Red>Magenta
+import random
 def player1_die_pick(die):
     p1Die =""
     valid1 = False
@@ -82,11 +88,9 @@ def game_start(die):
         print dice,":" ,die[dice]
     print "-------------------------------------------------"
     numOfDie =  raw_input("1 or 2 die per player?")
-    print "You just entered: ", numOfDie
     while True:
         if(numOfDie == "1.0" or numOfDie == "2.0" or
            numOfDie == "1" or numOfDie == "2"):
-            print "nice"
             numOfDie = int(numOfDie)
             break
         else:
